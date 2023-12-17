@@ -7,7 +7,7 @@ class Task{
     }
 }
 
-// UI Class - representa edicao de Tasks
+// UI Class - representa manipulacao de Tasks
 class UI {
     
     static displayTasks(){
@@ -63,14 +63,22 @@ class UI {
         }
     }
 
+    static showAlerts(message, className) {
+        const div = document.createElement('div');
+        div.className = `alert alert-${className}`;
 
-    static showAlers(message, className){
+        div.appendChild(document.createTextNode(message));
 
+        document.body.insertBefore(div, document.body.firstChild);
+
+        setTimeout(() => {
+            div.remove();
+        }, 3000); 
     }
 
-    static clearFields(){
-        document.getElementById('title').value = "";
-        document.getElementById('description').value="";
+    static clearFields() {
+        document.getElementById('inputTitle').value = ""; 
+        document.getElementById('inputDescription').value = "";
     }
 
 }
@@ -99,8 +107,9 @@ document.getElementById('task-form').addEventListener('submit', (e)=>{
     // validations - validacao para task
 
     if(title === "" | description === ""){
-        alert('Todos os campos do formulario sao requeridos')
+        UI.showAlerts('Todos os campos do formulario sao requeridos' , "primary")
     }else{
+        UI.showAlerts('Task Adicionada com sucessso' , "success")
 
     // instanciar class Task usanado constructor
     const newTask = new Task(id, title, description)
