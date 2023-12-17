@@ -62,6 +62,12 @@ class UI {
             el.parentElement.parentElement.remove();
         }
     }
+
+
+    static showAlers(message, className){
+
+    }
+
     static clearFields(){
         document.getElementById('title').value = "";
         document.getElementById('description').value="";
@@ -90,6 +96,11 @@ document.getElementById('task-form').addEventListener('submit', (e)=>{
     const title = document.getElementById('inputTitle').value
     const description  = document.getElementById('inputDescription').value
 
+    // validations - validacao para task
+
+    if(title === "" | description === ""){
+        alert('Todos os campos do formulario sao requeridos')
+    }else{
 
     // instanciar class Task usanado constructor
     const newTask = new Task(id, title, description)
@@ -98,7 +109,10 @@ document.getElementById('task-form').addEventListener('submit', (e)=>{
     // add Task a UI para ser mostrada em tela
     UI.addTaskToList(newTask);
     UI.clearFields();
-})
+}
+
+});
+
 
 
 // RemoveTask permite remover uma task de local storage
