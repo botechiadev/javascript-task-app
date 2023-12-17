@@ -1,9 +1,9 @@
 // Task Class - representa cada Task
 class Task{
     constructor(id, title, description){
-        this.id = new Date().toISOString();
-        this.title = inputTitle;
-        this.description = inputDescription;
+        this.id =id;
+        this.title = title;
+        this.description = description;
     }
 }
 
@@ -11,7 +11,8 @@ class Task{
 class UI {
     
     static displayTasks(){
-        const today = new Date().toISOString()
+        const today = Date.now().toString()
+
         const StoredTasks= [
             {
             id: today,
@@ -70,5 +71,25 @@ document.addEventListener('DOMContentLoaded', UI.displayTasks );
 
 
 // AddBook : permite adicionar task ao clicar em botao em adicionar
+
+document.getElementById('task-form').addEventListener('submit', (e)=>{
+    //preventDefault para evitar submit
+    e.preventDefault()
+    
+    // passo 1 - pegar valores do form
+    const id = Date.now().toString()
+    const title = document.getElementById('inputTitle').value
+    const description  = document.getElementById('inputDescription').value
+
+
+    // instanciar class Task usanado constructor
+    const newTask = new Task(id, title, description)
+
+
+    // add Task a UI para ser mostrada em tela
+    UI.addTaskToList(newTask)
+
+})
+
 
 // RemoveTask permite remover uma task de local storage
