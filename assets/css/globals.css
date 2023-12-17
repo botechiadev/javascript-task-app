@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root{
+    --color-red: #F75151;
+    --color-text: #7F7F7F;
+    --color-bg: #EFE5E3;
+    font-size: 16px;
+    color: var(--color-text);
+}
+
+body{
+    display: grid;
+    min-height: 100vh;
+    max-width: 1fr;
+    padding: 1rem;
+    background: var(--color-bg);
+}
+
+
+header h1{
+    text-align: center;
+    margin: 30px auto;
+}
+header h1 i{
+    color: var(--color-red);
+}
