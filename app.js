@@ -46,16 +46,31 @@ class UI {
                 ${task.description}
             </td>
             <td>
-                <a href="#" class="btn btn-danger">
+                <a href="#" class="btn btn-primary delete" >
                 <i class="fa-solid fa-trash"></i>
                 </a>
-                <button class="btn btn-primary">
-                <i class="fa-solid fa-pencil"></i>
-                </button>
             </td>
         `
 
         listHTML.appendChild(tableRow);
+    }
+    
+
+    // se contem a classe delete remove a task completa por selecionar 2 elementos pais
+    static deleteTask(el){
+        if(el.classList.contains('delete')){
+            el.parentElement.parentElement.remove();
+        }
+    }
+
+
+    static showAlers(message, className){
+
+    }
+
+    static clearFields(){
+        document.getElementById('title').value = "";
+        document.getElementById('description').value="";
     }
 
 }
@@ -81,15 +96,26 @@ document.getElementById('task-form').addEventListener('submit', (e)=>{
     const title = document.getElementById('inputTitle').value
     const description  = document.getElementById('inputDescription').value
 
+    // validations - validacao para task
+
+    if(title === "" | description === ""){
+        alert('Todos os campos do formulario sao requeridos')
+    }else{
 
     // instanciar class Task usanado constructor
     const newTask = new Task(id, title, description)
 
 
     // add Task a UI para ser mostrada em tela
-    UI.addTaskToList(newTask)
+    UI.addTaskToList(newTask);
+    UI.clearFields();
+}
 
-})
+});
+
 
 
 // RemoveTask permite remover uma task de local storage
+document.getElementById('task-list').addEventListener('click', (e)=>{
+    UI.deleteTask(e.target);
+})
