@@ -85,7 +85,9 @@ document.getElementById('task-form').addEventListener('submit', (e)=>{
     // instanciar class Task usanado constructor
     const newTask = new Task(id, title, description)
 
-    console.log(newTask)
+
+    // add Task a UI para ser mostrada em tela
+    UI.addTaskToList(newTask)
 
 })
 
