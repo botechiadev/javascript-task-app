@@ -1,6 +1,5 @@
 # JAVASCRIPT-TASK-API
-## DEPLOY : [![Netlify Status](https://api.netlify.com/api/v1/badges/ac0943cc-cf9c-4883-8b24-530756ae4885/deploy-status)](https://app.netlify.com/sites/js-vainilla-tasks-api/deploys)
-
+## DEPLOY : <a href="https://botechiadev.github.io/javascript-task-app/">Deploy on GITHUB</a>
 ## OVERVIEW
 Criacao de API com vainilla javascript para manejo de tarefas usando conceitos como:
 - Manipulacao do DOM
