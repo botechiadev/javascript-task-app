@@ -1,5 +1,5 @@
 # JAVASCRIPT-TASK-API
-## DEPLOY : <a href='https://js-vainilla-tasks-api.netlify.app' style="background: gold; padding: 1rem; color: gray; ">https://js-vainilla-tasks-api.netlify.app</a>
+## DEPLOY : <a href='https://botechiadev.github.io/javascript-task-app/)' style="background: gold; padding: 1rem; color: gray; ">https://botechiadev.github.io/javascript-task-app/</a>
 
 
 ## OVERVIEW
