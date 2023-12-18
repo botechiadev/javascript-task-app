@@ -1,4 +1,5 @@
 # JAVASCRIPT-TASK-API
+## DEPLOY : [![Netlify Status](https://api.netlify.com/api/v1/badges/ac0943cc-cf9c-4883-8b24-530756ae4885/deploy-status)](https://app.netlify.com/sites/js-vainilla-tasks-api/deploys)
 
 ## OVERVIEW
 Criacao de API com vainilla javascript para manejo de tarefas usando conceitos como:
@@ -23,6 +24,7 @@ Criacao de API com vainilla javascript para manejo de tarefas usando conceitos c
 - BOOTSTRAP com tema proveniente de BOOTSWATCH
 
 
-## Resultados : EM BREVE
+## Resultados : 
 
-## DEPLOY : EM BREVE 
+<img src="./assets/images/task-api-vainilla.png" style="width: 90
+%; margin: auto">
