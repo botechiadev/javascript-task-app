@@ -1,39 +1,22 @@
 // Task Class - representa cada Task
-class Task{
-    constructor(id, title, description){
-        this.id =id;
+class Task {
+    constructor(id, title, description) {
+        this.id = id;
         this.title = title;
         this.description = description;
     }
 }
 
-// UI Class - representa manipulacao de Tasks
+// UI Class - representa manipulação de Tasks
 class UI {
-    
-    static displayTasks(){
-        const today = Date.now().toString()
-
-        const StoredTasks= [
-            {
-            id: today,
-            title: "Task1",
-            description: "Descricao da task",
-        }
-    ]
-
-
-    const tasks = StoredTasks;
-
-    // aqui como mostrar as tasks
-
-    tasks.forEach((task) => UI.addTaskToList(task));
+    static displayTasks() {
+        const storedTasks = Storage.getTasks();
+        storedTasks.forEach((task) => UI.addTaskToList(task));
     }
 
-    static addTaskToList(task){
+    static addTaskToList(task) {
         const listHTML = document.getElementById('task-list');
-
-        // cria elemento sem js
-        const tableRow = document.createElement('tr')
+        const tableRow = document.createElement('tr');
 
         tableRow.innerHTML = `
             <td>
@@ -50,15 +33,13 @@ class UI {
                 <i class="fa-solid fa-trash"></i>
                 </a>
             </td>
-        `
+        `;
 
         listHTML.appendChild(tableRow);
     }
-    
 
-    // se contem a classe delete remove a task completa por selecionar 2 elementos pais
-    static deleteTask(el){
-        if(el.classList.contains('delete')){
+    static deleteTask(el) {
+        if (el.classList.contains('delete')) {
             el.parentElement.parentElement.remove();
         }
     }
@@ -73,58 +54,73 @@ class UI {
 
         setTimeout(() => {
             div.remove();
-        }, 3000); 
+        }, 3000);
     }
 
     static clearFields() {
-        document.getElementById('inputTitle').value = ""; 
+        document.getElementById('inputTitle').value = "";
         document.getElementById('inputDescription').value = "";
     }
-
 }
 
+class Storage {
+    static getTasks() {
+        let tasks;
+        if (localStorage.getItem('tasks') === null) {
+            tasks = [];
+        } else {
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
 
-// Storage Class - representa o armazenamento de cada Task por Handle Storage
+        return tasks;
+    }
 
+    static addTask(newTask) {
+        const tasks = Storage.getTasks();
+        tasks.push(newTask);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    static removeTask(id) {
+        const tasks = Storage.getTasks();
+        tasks.forEach((task, index) => {
+            if (task.id === id) {
+                tasks.splice(index, 1);
+            }
+        });
+
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+}
 
 // Events
 
-// DisplayTask permite mostrar tasks armazenados 
-document.addEventListener('DOMContentLoaded', UI.displayTasks );
+document.getElementById('task-form').addEventListener('submit', (e) => {
+    e.preventDefault();
 
+    const id = Date.now().toString();
+    const title = document.getElementById('inputTitle').value;
+    const description = document.getElementById('inputDescription').value;
 
-// AddBook : permite adicionar task ao clicar em botao em adicionar
+    if (title === "" || description === "") {
+        UI.showAlerts('Todos os campos do formulário são requeridos', "primary");
+    } else {
+        UI.showAlerts('Task Adicionada com sucesso', "success");
 
-document.getElementById('task-form').addEventListener('submit', (e)=>{
-    //preventDefault para evitar submit
-    e.preventDefault()
-    
-    // passo 1 - pegar valores do form
-    const id = Date.now().toString()
-    const title = document.getElementById('inputTitle').value
-    const description  = document.getElementById('inputDescription').value
+        const newTask = new Task(id, title, description);
+        UI.addTaskToList(newTask);
 
-    // validations - validacao para task
-
-    if(title === "" | description === ""){
-        UI.showAlerts('Todos os campos do formulario sao requeridos' , "primary")
-    }else{
-        UI.showAlerts('Task Adicionada com sucessso' , "success")
-
-    // instanciar class Task usanado constructor
-    const newTask = new Task(id, title, description)
-
-
-    // add Task a UI para ser mostrada em tela
-    UI.addTaskToList(newTask);
-    UI.clearFields();
-}
-
+        Storage.addTask(newTask);
+        UI.clearFields();
+    }
 });
 
-
-
-// RemoveTask permite remover uma task de local storage
-document.getElementById('task-list').addEventListener('click', (e)=>{
+document.getElementById('task-list').addEventListener('click', (e) => {
     UI.deleteTask(e.target);
-})
+
+    const taskId = e.target.parentElement.parentElement.querySelector('td:first-child').textContent;
+    Storage.removeTask(taskId);
+});
+
+// Display tasks after the DOM content is loaded
+document.addEventListener('DOMContentLoaded', UI.displayTasks);
